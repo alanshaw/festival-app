@@ -6,6 +6,12 @@ This is a [phonegap](http://phonegap.com/) application.
 Quickstart
 ----------
 
+### Requirements
+
+- [Git](http://git-scm.com/)
+- [Maven 3](http://maven.apache.org/download.html)
+- [JDK 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1637583.html)
+
 ### Get the code
 
     git clone git@github.com:alanshaw/festival-app.git
