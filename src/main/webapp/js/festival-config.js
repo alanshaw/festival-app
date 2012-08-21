@@ -3,7 +3,13 @@
  * 
  * This file is filtered by maven i.e. you can use ${propertyName} to reference properties in the POM.
  */
-var Config = {
+var FestivalConfig = {
 	id: '${festivalId}',
-	modules: '${festivalModules}'.split(',')
+	modules: '${festivalModules}'.split(','),
+	position: {
+		coords: {
+			latitude: parseFloat('${festivalLatitude}'),
+			longitude: parseFloat('${festivalLongitude}')
+		}
+	}
 };
