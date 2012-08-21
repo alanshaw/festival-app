@@ -50,8 +50,8 @@
 		<festivalId>default</festivalId>
 		<!-- Names of modules that are included in this festival app -->
 		<festivalModules>tent,torch</festivalModules>
-		<!-- Module directories that will NOT appear in the final build (for make smaller app) e.g. mod/tent/**,mod/torch/** --> 
-		<festivalModuleExclusions></festivalModuleExclusions>
+		<!-- Define the directories of the modules you have specified above so their code is included in the build --> 
+		<festivalModuleInclusions>mod/tent/**,mod/torch/**</festivalModuleInclusions>
 
 	</properties>
 
@@ -124,8 +124,8 @@
 						img/**,
 						js/**,
 						festival/${festivalId}/**,
+						${festivalModuleInclusions}
 					</warSourceIncludes>
-					<warSourceExcludes>${festivalModuleExclusions}</warSourceExcludes>
 					
 					<!-- Perform variable replacement on the festival configuration file -->
 					<webResources>
