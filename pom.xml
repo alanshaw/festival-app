@@ -51,7 +51,7 @@
 		<!-- Names of modules that are included in this festival app -->
 		<festivalModules>tent,torch</festivalModules>
 		<!-- Define the directories of the modules you have specified above so their code is included in the build --> 
-		<festivalModuleInclusions>mod/tent/**,mod/torch/**</festivalModuleInclusions>
+		<festivalModuleDirs>mod/tent/**,mod/torch/**</festivalModuleDirs>
 
 	</properties>
 
@@ -124,7 +124,7 @@
 						img/**,
 						js/**,
 						festival/${festivalId}/**,
-						${festivalModuleInclusions}
+						${festivalModuleDirs}
 					</warSourceIncludes>
 					
 					<!-- Perform variable replacement on the festival configuration file -->
