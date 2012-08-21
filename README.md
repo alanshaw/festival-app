@@ -27,3 +27,21 @@ Next delete the sample www directory in your project and symlink to the director
      ln -s /path/to/cloned/festival-app/target/festival-app-1.0-SNAPSHOT www
 
 You should now be able to compile and run the app in the relevant simulator/device.
+
+
+Directory structure
+-------------------
+
+This is somewhat up in the air at the moment but for the time being the following directory structure is being used:
+
+* js - Shared JavaScript/CoffeeScript for use with the application
+* js/lib - Shared JavaScript/CoffeeScript libraries including the festival library
+* mod - Directory for application modules
+* mod/*/js - CoffeeScript(s) to make the module work
+* mod/*/css - Default LESS stylesheet(s) for the module
+* mod/*/xxx.html - Module HTML
+* festival - Directory for festival specific files
+* festival/*/css - Theme CSS/LESS files
+* festival/*/mod/*/js - (Not usually used) Overridden module CoffeeScript(s) for the festival
+* festival/*/mod/*/css - Themed CSS/LESS stylesheet(s) for the module
+* festival/*/mod/*/xxx.html - (Not usually used) Overridden module HTML for the festival
