@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.alanshaw</groupId>
+	<artifactId>festival-app</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<packaging>war</packaging>
+
+	<name>Festival App</name>
+	<url>https://github.com/alanshaw/festival-app</url>
+	<description>The idea is that when you first arrive and are relatively sober, you sort out the sensible things like logging your tent's location and what acts you want to see. Then the app helps you survive the whole experience.</description>
+	<inceptionYear>2012</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>alan</id>
+			<name>Alan Shaw</name>
+			<email>alan@freestyle-developments.co.uk</email>
+			<url>http://freestyle-developments.co.uk/</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/olizilla/java-awezomg</url>
+		<connection>scm:git:git@github.com:alanshaw/festival-app.git</connection>
+		<developerConnection>scm:git:git@github.com:alanshaw/festival-app.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/alanshaw/festival-app/issues</url>
+	</issueManagement>
+
+	<!--ciManagement>
+		<system>Jenkins</system>
+		<url>http://example.org</url>
+	</ciManagement-->
+
+	<properties>
+
+		<!-- Tell Maven to use UTF-8 rather than your OS defualt encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jdk.version>1.7</jdk.version>
+
+		<!-- Application configuration (Add a profile to your ~/.m2/settings.xml to override) -->
+
+		<!-- Unique identifier for the festival. Used to resolve theme paths and configuration files -->
+		<festivalId>default</festivalId>
+		<!-- Names of modules that are included in this festival app -->
+		<festivalModules>tent,torch</festivalModules>
+		<!-- Module directories that will NOT appear in the final build (for make smaller app) e.g. mod/tent/**,mod/torch/** --> 
+		<festivalModuleExclusions></festivalModuleExclusions>
+
+	</properties>
+
+	<build>
+		
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Compile LESS CSS resources -->
+			<plugin>
+				<groupId>org.lesscss</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<configuration>
+					<sourceDirectory>${basedir}/src/main/webapp</sourceDirectory>
+					<outputDirectory>${basedir}/src/main/webapp</outputDirectory>
+					<compress>true</compress>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Compile Coffeescript resources -->
+			<plugin>
+				<groupId>com.github.iron9light</groupId>
+				<artifactId>coffeescript-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<configuration>
+					<srcDir>${basedir}/src/main/webapp</srcDir>
+					<outputDir>${basedir}/src/main/webapp</outputDir>
+					<bare>false</bare>
+					<modifiedOnly>false</modifiedOnly>
+					<allowedDelete>true</allowedDelete>
+					<compilerUrl></compilerUrl>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					
+					<!-- Optimise the filesize of the final build -->
+					<warSourceIncludes>
+						WEB-INF/**,
+						config.xml,
+						res/**,
+						img/**,
+						js/**,
+						festival/${festivalId}/**,
+					</warSourceIncludes>
+					<warSourceExcludes>${festivalModuleExclusions}</warSourceExcludes>
+					
+					<!-- Perform variable replacement on the festival configuration file -->
+					<webResources>
+						<resource>
+							<directory>src/main/webapp/js</directory>
+							<targetPath>js</targetPath>
+							<filtering>true</filtering>
+							<includes>
+								<include>festival-config.js</include>
+							</includes>
+						</resource>
+					</webResources>
+					
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
