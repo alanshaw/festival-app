@@ -1,11 +1,11 @@
 class window.Festival
 	
 	@loadCss: (module) ->
-		$('head').append('<link rel="stylesheet" href="../../festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css" />')
+		$('head').append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css" />')
 		# TODO: Load module CSS and festival module CSS 
 	
 	@loadLang: (callback) ->
-		@loadCachedScript('../../festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js', success: callback)
+		@loadCachedScript('festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js', success: callback)
 	
 	###
 	Get and execute a script, using cached version if available.
@@ -38,7 +38,7 @@ class window.Festival
 	###
 	@loadGoogleMapsScript: (options) ->
 		
-		cbName = 'getGoogleMapsScriptCallback' + cbCounter
+		cbName = 'getGoogleMapsScriptCallback' + @cbCounter
 		onSuccess = if options then options.success else null
 		
 		Festival[cbName] = ->
@@ -47,6 +47,6 @@ class window.Festival
 		
 		if(onSuccess) then options.success = null
 		
-		Festival.cbCounter++;
+		@cbCounter++;
 		
 		@loadCachedScript('http://maps.google.com/maps/api/js?sensor=false&callback=Festival.' + cbName, options);

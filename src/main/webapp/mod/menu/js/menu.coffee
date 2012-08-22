@@ -1,10 +1,5 @@
 MenuView = Backbone.View.extend
-	initialize: -> 
-		@render()
 	render: ->
-		
-		# Load theme and module CSS
-		Festival.loadCss()
 		
 		# Set the title
 		$('h1', @el).text(FestivalLang.menu.title)
@@ -20,15 +15,12 @@ MenuView = Backbone.View.extend
 		
 		$('[data-role="content"] ul', @el).html(template).listview('refresh')
 
-$(document).bind("deviceready", -> 
-	
-	# If only 1 module, redirect to that module
-	mods = FestivalConfig.modules
-	if mods.length == 1 then window.location.href = '../' + mods[0] + '/' + mods[0] + '.html'
-	
-	# Load language
-	Festival.loadLang( ->
-		# Render view
-		view = new MenuView(el: $('[data-role="page"]'))
-	)
-);
+
+# If only 1 module, redirect to that module
+mods = FestivalConfig.modules
+if mods.length == 1 then window.location.href = '../' + mods[0] + '/' + mods[0] + '.html'
+
+# Render view
+view = new MenuView(el: $('#menu-page'))
+
+view.render()

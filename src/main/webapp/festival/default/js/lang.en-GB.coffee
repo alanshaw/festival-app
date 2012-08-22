@@ -20,3 +20,5 @@ class window.FestivalLang
 			torch:
 				title: 'Torch'
 				desc: 'Helps you find your shit in the dark'
+	@tent:
+		title: "Where's my tent"
