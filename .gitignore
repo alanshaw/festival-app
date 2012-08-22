@@ -4,3 +4,5 @@
 # Don't include CSS/JS files generated from coffeescript/LESS sources
 src/main/webapp/mod/*/js/*.js
 src/main/webapp/mod/*/css/*.css
+src/main/webapp/js/libs/festival.js
+src/main/webapp/festival/*/js/lang.*.js
