@@ -1,17 +1,22 @@
 TentView = Backbone.View.extend
+	
+	watchId: null
+	
 	initialize: ->
-		page = $(@el)
-		page.bind('pageshow', =>
-			page.css('height', '100%')
-			@render()
-		)
+		$(@el)
+			.bind('pageshow', => @render())
+			.bind('pagehide', => navigator.geolocation.clearWatch(@watchId))
+	
 	render: ->
 		
 		# Set the title
 		@$('h1').text(FestivalLang.tent.title)
 		
 		Festival.loadGoogleMapsScript(
-			success: -> 
+			success: => 
+				
+				# Resize the map to the screen height
+				@$("#tent-map").height($(@el).height())
 				
 				latlng = new google.maps.LatLng(FestivalConfig.position.coords.latitude, FestivalConfig.position.coords.longitude)
 				
@@ -41,7 +46,7 @@ TentView = Backbone.View.extend
 				
 				mapCentred = false
 				
-				navigator.geolocation.watchPosition((position) ->
+				@watchId = navigator.geolocation.watchPosition((position) ->
 					
 					latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 					
@@ -52,8 +57,7 @@ TentView = Backbone.View.extend
 					marker.setPosition(latlng)
 				)
 				
-			error: ->
-				alert 'Failed to load Google Map'
+			error: -> alert 'Failed to load Google Map'
 		)
 
 new TentView(el: $('#tent-page'))

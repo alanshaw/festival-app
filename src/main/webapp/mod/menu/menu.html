@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 
-<div id="menu-page" data-role="page">
+<div id="menu-page" data-role="page" data-dom-cache="true">
 	
 	<div data-role="header">
 		<h1></h1>
@@ -13,7 +13,7 @@
 	<script type="text/template" id="menu-items-template">
 		<% _.each(modules, function(module) { %>
 		<li>
-			<a href="<%= module.url %>" data-transition="slide">
+			<a href="<%= module.url %>">
 				<h2><%= module.title %></h2>
 				<p><%= module.desc %></p>
 			</a>

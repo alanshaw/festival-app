@@ -12,28 +12,35 @@
 		opacity: 0;
 	}
 }
-// get the container that's just outside the marker image, which just happens to have our Marker title in it
-#tent-map div.gmnoprint[title="tent-map-bluedot"] {
-	-webkit-animation: pulsate 1.5s ease-in-out infinite;
-	border:1pt solid #fff;
-	// make a circle
-	-webkit-border-radius:51px;
-	border-radius:51px;
-	// multiply the shadows, inside and outside the circle
-	-webkit-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
-	box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
-	// set the ring's new dimension and re-center it
-	height:51px!important;
-	margin:-18px 0 0 -18px;
-	width:51px!important;
-	// hide the superfluous marker image since it would expand and shrink with its containing element
-	img {
-		display:none;
+#tent-map {
+	margin: -15px;
+	
+	// get the container that's just outside the marker image, which just happens to have our Marker title in it
+	div.gmnoprint[title="tent-map-bluedot"] {
+		-webkit-animation: pulsate 1.5s ease-in-out infinite;
+		border:1pt solid #fff;
+		// make a circle
+		-webkit-border-radius:51px;
+		border-radius:51px;
+		// multiply the shadows, inside and outside the circle
+		-webkit-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+		box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+		// set the ring's new dimension and re-center it
+		height:51px!important;
+		// TODO: Why is this 10px on iPhone byt 18px on desktop Chrome
+		//margin:-18px 0 0 -18px;
+		margin:-10px 0 0 -10px;
+		width:51px!important;
+		// hide the superfluous marker image since it would expand and shrink with its containing element
+		img {
+			display:none;
+		}
 	}
 }
 // compensate for iPhone and Android devices with high DPI, add iPad media query
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (device-width: 768px) {
+// TODO: Why isn't this working?
+/*@media only screen and (-webkit-min-device-pixel-ratio: 2) {
 	#tent-map div.gmnoprint[title="tent-map-bluedot"] {
 		margin:-10px 0 0 -10px;
 	}
-} 
+}*/
