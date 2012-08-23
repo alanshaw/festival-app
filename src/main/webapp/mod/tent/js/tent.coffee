@@ -1,38 +1,59 @@
 TentView = Backbone.View.extend
+	initialize: ->
+		page = $(@el)
+		page.bind('pageshow', =>
+			page.css('height', '100%')
+			@render()
+		)
 	render: ->
 		
 		# Set the title
-		$('h1', @el).text(FestivalLang.tent.title)
+		@$('h1').text(FestivalLang.tent.title)
 		
 		Festival.loadGoogleMapsScript(
 			success: -> 
 				
 				latlng = new google.maps.LatLng(FestivalConfig.position.coords.latitude, FestivalConfig.position.coords.longitude)
 				
-				mapOpts =
+				map = new google.maps.Map(@$("#tent-map")[0],
 					zoom: 16,
 					center: latlng,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
+					navigationControl: false,
+					scaleControl: false,
+					streetViewControl: false,
+					mapTypeControl: true
+				)
 				
-				map = new google.maps.Map($("#tent-map")[0], mapOpts)
+				marker = new google.maps.Marker(
+					map: map
+					position: latlng
+					title: 'tent-map-bluedot', # style hook to add pulsate
+					icon: new google.maps.MarkerImage(
+						'img/bluedot@2x.png',
+						null, # size
+						null, # origin
+						new google.maps.Point(8, 8), # anchor (move to center of marker)
+						new google.maps.Size(17, 17) # scaled size (required for Retina display icon)
+					),
+					optimized: false
+				)
 				
+				mapCentred = false
 				
-				
-				navigator.geolocation.getCurrentPosition((position) ->
+				navigator.geolocation.watchPosition((position) ->
 					
 					latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 					
-					map.setCenter(latlng)
+					if(!mapCentred)
+						map.setCenter(latlng)
+						mapCentred = true
+					
+					marker.setPosition(latlng)
 				)
 				
 			error: ->
 				alert 'Failed to load Google Map'
 		)
 
-$('#tent-page').bind('pageshow', -> 
-	$('#tent-page').css('height', '100%')
-)
-
-view = new TentView(el: $('#tent-page'))
-
-view.render()
+new TentView(el: $('#tent-page'))

@@ -1,11 +1,24 @@
 class window.Festival
 	
-	@loadCss: (module) ->
-		$('head').append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css" />')
-		# TODO: Load module CSS and festival module CSS 
+	@loadCss: ->
+		head = $('head')
+		
+		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css?' + FestivalConfig.version + '" />')
+		
+		_.each(FestivalConfig.modules, (module) ->
+			
+			path = 'mod/' + module + '/css/' + module + '.min.css?' + FestivalConfig.version
+			
+			# Default module styles
+			head.append('<link rel="stylesheet" href="' + path + '" />')
+			
+			# Allows festival to override module styles if necessary
+			head.append('<link rel="stylesheet" href="festival/' + path + '" />')
+		)
 	
 	@loadLang: (callback) ->
-		@loadCachedScript('festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js', success: callback)
+		# TODO: Load lang based on browser locale
+		@loadCachedScript('festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js?' + FestivalConfig.version, success: callback)
 	
 	###
 	Get and execute a script, using cached version if available.
@@ -34,12 +47,16 @@ class window.Festival
 	Get and execute the google maps API script, using cached version if available.
 	
 	@param {Object} options $.ajax options
-	@return jqXHR
+	@return jqXHR or null if the script has already been loaded
 	###
 	@loadGoogleMapsScript: (options) ->
 		
 		cbName = 'getGoogleMapsScriptCallback' + @cbCounter
 		onSuccess = if options then options.success else null
+		
+		if window.google and window.google.maps 
+			if(onSuccess) then onSuccess()
+			return null
 		
 		Festival[cbName] = ->
 			delete Festival[cbName]
