@@ -1,8 +1,12 @@
 MenuView = Backbone.View.extend
+	initialize: ->
+		# If only 1 module, redirect to that module
+		mods = FestivalConfig.modules
+		if mods.length == 1 then $.mobile.changePage('../' + mods[0] + '/' + mods[0] + '.html')
 	render: ->
 		
 		# Set the title
-		$('h1', @el).text(FestivalLang.menu.title)
+		@$('h1').text(FestivalLang.menu.title)
 		
 		# Create the menu
 		modules = _.map(FestivalConfig.modules, (name) -> 
@@ -13,14 +17,7 @@ MenuView = Backbone.View.extend
 		
 		template = _.template($("#menu-items-template").html(), modules: modules)
 		
-		$('[data-role="content"] ul', @el).html(template).listview('refresh')
-
-
-# If only 1 module, redirect to that module
-mods = FestivalConfig.modules
-if mods.length == 1 then window.location.href = '../' + mods[0] + '/' + mods[0] + '.html'
+		@$('[data-role="content"] ul').html(template).listview('refresh')
 
 # Render view
-view = new MenuView(el: $('#menu-page'))
-
-view.render()
+new MenuView(el: $('#menu-page')).render()
