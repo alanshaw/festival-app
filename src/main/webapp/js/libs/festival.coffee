@@ -12,23 +12,33 @@ class window.Festival
 		
 		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css?' + FestivalConfig.version + '" />')
 		
-		_.each(FestivalConfig.modules, (module) ->
+		scripts = []
+		
+		for module in FestivalConfig.modules
 			
-			path = 'mod/' + module + '/css/' + module + '.min.css?' + FestivalConfig.version
+			cssPath = 'mod/' + module + '/css/' + module + '.min.css?' + FestivalConfig.version
 			
 			# Default module styles
-			head.append('<link rel="stylesheet" href="' + path + '" />')
+			head.append('<link rel="stylesheet" href="' + cssPath + '" />')
 			
 			# Allows festival to override module styles if necessary
-			head.append('<link rel="stylesheet" href="festival/' + path + '" />')
-		)
+			head.append('<link rel="stylesheet" href="festival/' + cssPath + '" />')
+			
+			scripts.push('mod/' + module + '/js/lib/' + module + '.min.js?' + FestivalConfig.version)
 		
 		# TODO: Load lang based on browser locale
-		@loadCachedScript(
-			'festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js?' + FestivalConfig.version,
-			# When the language is loaded, show the menu page using the fade in transition
-			success: -> $.mobile.changePage('mod/menu/menu.html', transition: 'fade')
-		)
+		scripts.push('festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js?' + FestivalConfig.version)
+		
+		scriptsLoaded = 0
+		
+		# When all scripts are loaded, show the menu page using the fade in transition
+		onScriptsLoaded = -> $.mobile.changePage('mod/menu/menu.html', transition: 'fade')
+		
+		for script in scripts
+			@loadCachedScript(script, success: -> 
+				scriptsLoaded++
+				if(scriptsLoaded == scripts.length) then onScriptsLoaded()
+			)
 		
 		# Prevent double call
 		@init = null
@@ -77,6 +87,6 @@ class window.Festival
 		
 		if(onSuccess) then options.success = null
 		
-		@cbCounter++;
+		@cbCounter++
 		
-		@loadCachedScript('http://maps.google.com/maps/api/js?sensor=false&callback=Festival.' + cbName, options);
+		@loadCachedScript('http://maps.google.com/maps/api/js?sensor=false&callback=Festival.' + cbName, options)

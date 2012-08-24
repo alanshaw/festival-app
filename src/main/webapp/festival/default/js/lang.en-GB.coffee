@@ -2,7 +2,7 @@
 en-GB translation
 ###
 class window.FestivalLang
-	@menu:
+	@MenuView:
 		title: 'Festival'
 		module:
 			survival:
@@ -20,5 +20,8 @@ class window.FestivalLang
 			torch:
 				title: 'Torch'
 				desc: 'Helps you find your shit in the dark'
-	@tent:
+	@TentView:
 		title: "Where's my tent?"
+	@Location:
+		validate:
+			key: 'Invalid location key'

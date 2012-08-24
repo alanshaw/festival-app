@@ -6,7 +6,7 @@ This file is filtered by maven i.e. you can use ${propertyName} to reference pro
 class window.FestivalConfig
 	@version: '${project.version}'
 	@id: '${festivalId}'
-	@modules: '${festivalModules}'.split(',')
+	@modules: 'menu,${festivalModules}'.split(',')
 	@position: 
 		coords:
 			latitude: parseFloat('${festivalLatitude}')
