@@ -5,9 +5,14 @@ TentView = Backbone.View.extend
 	initialize: ->
 		$(@el)
 			.bind('pageshow', => @render())
-			.bind('pagehide', => navigator.geolocation.clearWatch(@watchId))
+			.bind('beforepagehide', => navigator.geolocation.clearWatch(@watchId))
 	
 	render: ->
+		
+		$.mobile.showPageLoadingMsg()
+		
+		# Hide the back button if there is only 1 module
+		if(FestivalConfig.modules.length == 1) then @$('[data-role="header"] a').first().hide()
 		
 		# Set the title
 		@$('h1').text(FestivalLang.tent.title)
@@ -57,7 +62,11 @@ TentView = Backbone.View.extend
 					marker.setPosition(latlng)
 				)
 				
-			error: -> alert 'Failed to load Google Map'
+				$.mobile.hidePageLoadingMsg()
+				
+			error: -> 
+				$.mobile.hidePageLoadingMsg()
+				alert 'Failed to load Google Map'
 		)
 
 new TentView(el: $('#tent-page'))

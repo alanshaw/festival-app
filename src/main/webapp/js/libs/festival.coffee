@@ -1,6 +1,13 @@
 class window.Festival
 	
-	@loadCss: ->
+	@init: ->
+		
+		# Set #container div as a jqm pageContainer
+		$.mobile.pageContainer = $('#container')
+		
+		# Setting default page transition to slide
+		$.mobile.defaultPageTransition = 'slide';
+		
 		head = $('head')
 		
 		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css?' + FestivalConfig.version + '" />')
@@ -15,10 +22,16 @@ class window.Festival
 			# Allows festival to override module styles if necessary
 			head.append('<link rel="stylesheet" href="festival/' + path + '" />')
 		)
-	
-	@loadLang: (callback) ->
+		
 		# TODO: Load lang based on browser locale
-		@loadCachedScript('festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js?' + FestivalConfig.version, success: callback)
+		@loadCachedScript(
+			'festival/' + FestivalConfig.id + '/js/lang.en-GB.min.js?' + FestivalConfig.version,
+			# When the language is loaded, show the menu page using the fade in transition
+			success: -> $.mobile.changePage('mod/menu/menu.html', transition: 'fade')
+		)
+		
+		# Prevent double call
+		@init = null
 	
 	###
 	Get and execute a script, using cached version if available.

@@ -159,7 +159,7 @@
 						${festivalModuleDirs}
 					</warSourceIncludes>
 					
-					<!-- Perform variable replacement on the festival configuration file -->
+					<!-- Perform variable replacement on the festival configuration file and index.html -->
 					<webResources>
 						<resource>
 							<directory>src/main/webapp/js</directory>
@@ -167,6 +167,13 @@
 							<filtering>true</filtering>
 							<includes>
 								<include>festival-config.coffee</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>src/main/webapp/</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>index.html</include>
 							</includes>
 						</resource>
 					</webResources>
