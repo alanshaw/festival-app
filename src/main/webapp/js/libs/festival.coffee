@@ -90,3 +90,6 @@ class window.Festival
 		@cbCounter++
 		
 		@loadCachedScript('http://maps.google.com/maps/api/js?sensor=false&callback=Festival.' + cbName, options)
+	
+	# Alias the backbone localstorage Store object here so we can easily replace if necessary 
+	@Store: window.Store

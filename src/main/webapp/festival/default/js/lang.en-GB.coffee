@@ -22,6 +22,12 @@ class window.FestivalLang
 				desc: 'Helps you find your shit in the dark'
 	@TentView:
 		title: "Where's my tent?"
+		btn:
+			back: 'Menu'
+			save: 'Save'
+			relocate: 'Relocate'
+		tentLocation:
+			name: 'Tent location'
 	@Location:
 		validate:
-			key: 'Invalid location key'
+			id: 'Invalid location ID'
