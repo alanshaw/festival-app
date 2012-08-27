@@ -99,12 +99,19 @@ TentView = Backbone.View.extend
 		
 		@tentLocationMarker?.setMap(null)
 		
+		# TODO: Detect if image exists in festival theme directory and use fallback if not
 		@tentLocationMarker = new google.maps.Marker
 			map: @map
 			position: new google.maps.LatLng(location.get('latitude'), location.get('longitude'))
 			title: location.get('name')
 			# http://mapicons.nicolasmollet.com/markers/tourism/camping/
-			icon: new google.maps.MarkerImage('img/wildderness_camping.png')
+			icon: new google.maps.MarkerImage(
+				'../../festival/' + FestivalConfig.id + '/mod/tent/img/icon-tent@2x.png',
+				null, # size
+				null, # origin
+				null, # anchor (move to center of marker)
+				new google.maps.Size(32, 37) # scaled size (required for Retina display icon)
+			)
 	
 	###
 	Starts watching the user's position (centres the map on the first located position)
