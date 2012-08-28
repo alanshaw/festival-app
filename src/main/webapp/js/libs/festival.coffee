@@ -10,7 +10,7 @@ class window.Festival
 		
 		head = $('head')
 		
-		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.1.1.min.css?' + FestivalConfig.version + '" />')
+		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.2.0-alpha.1.min.css?' + FestivalConfig.version + '" />')
 		
 		scripts = []
 		
