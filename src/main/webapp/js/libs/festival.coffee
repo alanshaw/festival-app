@@ -2,9 +2,6 @@ class window.Festival
 	
 	@init: ->
 		
-		# Set #container div as a jqm pageContainer
-		$.mobile.pageContainer = $('#container')
-		
 		# Setting default page transition to slide
 		$.mobile.defaultPageTransition = 'slide';
 		
