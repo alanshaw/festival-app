@@ -22,6 +22,12 @@ The code in the festival-app git repository is cross platform HTML/CSS and JS. I
 
 Follow the relevant [getting started guide](http://docs.phonegap.com/en/2.0.0/guide_getting-started_index.md.html) from the phonegap website.
 
+#### Install PhoneGap plugins
+
+The following PhoneGap plugins should be installed:
+
+- Torch (https://github.com/purplecabbage/phonegap-plugins/)
+
 The cross platform HTML/CSS and JS needs to be built using Maven, you'll need to run a mvn package to compile the coffeescript and LESS files.
 
 In the future, you'll need to activate the relevant maven profile to get the compiled festival app of your choice - glastonbury for example.

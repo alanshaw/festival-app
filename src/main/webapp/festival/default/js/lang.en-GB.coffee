@@ -31,3 +31,7 @@ class window.FestivalLang
 	@Location:
 		validate:
 			id: 'Invalid location ID'
+	@TorchView:
+		title: 'Torch'
+		btn:
+			back: 'Menu'
