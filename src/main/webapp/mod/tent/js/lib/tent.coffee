@@ -10,7 +10,7 @@ TentView = Backbone.View.extend
 		@$el
 			.one('pageshow', => @render())
 			.bind('pageshow', => @watchPosition())
-			.bind('beforepagehide', => navigator.geolocation.clearWatch(@watchId))
+			.bind('pagebeforehide', => navigator.geolocation.clearWatch(@watchId))
 	
 	render: ->
 		

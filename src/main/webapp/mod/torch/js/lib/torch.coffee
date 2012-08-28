@@ -4,7 +4,7 @@ TorchView = Backbone.View.extend
 		@$el
 			.one('pageshow', => @render())
 			.bind('pageshow', @turnOn)
-			.bind('beforepagehide', @turnOff)
+			.bind('pagebeforehide', @turnOff)
 	
 	render: ->
 		
@@ -20,12 +20,18 @@ TorchView = Backbone.View.extend
 		$.mobile.hidePageLoadingMsg()
 	
 	turnOn: ->
-		if(!window.plugins) then alert('no window.plugins') else alert('window.plugins')
-		if(!cordova.exec) then alert('no cordova.exec') else alert('cordova.exec')
-		window.plugins.torch.turnOn()
+		try
+			window.plugins?.torch?.turnOn?.call(@)
+		catch ex
+			alert ex
 	
-	turnOff: -> window.plugins.torch.turnOff()
+	turnOff: ->
+		try
+			window.plugins?.torch?.turnOff?.call(@)
+		catch ex
+			alert ex
 
-$.getScript('js/libs/Torch.plugin.js')
+# Load the torch plugin dependency (to allow callback to iOS/Android)
+$.getScript('mod/torch/js/lib/Torch.plugin.min.js', -> Torch.install())
 
 $(document).bind('pageload', (event, data) -> new TorchView(el: $('#torch-page')) if /mod\/torch\/torch.html$/.test(data.url))

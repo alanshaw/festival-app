@@ -17,17 +17,12 @@ function Torch()
 
 Torch.prototype.turnOn = function()
 {
-	try {
-	alert('About to turn on');
-	cordova.exec(function(){alert('Successfully turned on')}, function(error){alert('Error turning on: ' + error)}, 'Torch', 'turnOn', []);
-	} catch(ex) {
-		alert('Caught exception ' + ex);
-	}
+	cordova.exec(function(){}, function(){}, 'Torch', 'turnOn', []);
 };
 
 Torch.prototype.turnOff = function()
 {
-	cordova.exec(function(){}, function(){}, 'Torch', 'turnOff');
+	cordova.exec(function(){}, function(){}, 'Torch', 'turnOff', []);
 };
 
 Torch.install = function()
