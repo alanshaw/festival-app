@@ -10,7 +10,7 @@ TentView = Backbone.View.extend
 		@$el
 			.one('pageshow', => @render())
 			.bind('pageshow', => @watchPosition())
-			.bind('pagebeforehide', => navigator.geolocation.clearWatch(@watchId))
+			.bind('pagehide', => @onPageHide())
 	
 	render: ->
 		
@@ -130,6 +130,23 @@ TentView = Backbone.View.extend
 			
 			@userLocationMarker.setPosition(latlng)
 		)
+	
+	onPageHide: ->
+		
+		navigator.geolocation.clearWatch(@watchId)
+		
+		# If the page is not being cached in the DOM then clean up
+		if(!@$el.is('[data-dom-cache="true"]'))
+			
+			console?.log('Cleaning up Google map')
+			
+			@tentLocationMarker?.setMap(null)
+			@tentLocationMarker = null
+			
+			@userLocationMarker?.setMap(null)
+			@userLocationMarker = null
+			
+			@map = null
 
 
 Location = Backbone.Model.extend

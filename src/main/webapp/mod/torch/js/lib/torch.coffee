@@ -4,7 +4,7 @@ TorchView = Backbone.View.extend
 		@$el
 			.one('pageshow', => @render())
 			.bind('pageshow', @turnOn)
-			.bind('pagebeforehide', @turnOff)
+			.bind('pagehide', @turnOff)
 	
 	render: ->
 		

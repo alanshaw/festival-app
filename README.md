@@ -24,7 +24,7 @@ Follow the relevant [getting started guide](http://docs.phonegap.com/en/2.0.0/gu
 
 #### Install PhoneGap plugins
 
-The following PhoneGap plugins should be installed:
+The device specific code from following PhoneGap plugins should be installed in your Xcode/Eclipse/Whatever project:
 
 - Torch (https://github.com/purplecabbage/phonegap-plugins/)<br/>
   iOS - Not mentioned in the documentation is that you need to add the Torch plugin to the Plugins dictionary in your cordova.plist. To get it to compile under Xcode 4 you'll need to remove all the IFDEFs in the .h and .m file, keeping only the code for CORDOVA_FRAMEWORK. 
