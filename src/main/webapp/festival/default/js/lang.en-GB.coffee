@@ -1,5 +1,5 @@
 ###
-en-GB translation
+en-GB translation for text created dynamically with JavaScript
 ###
 class window.FestivalLang
 	@MenuView:

@@ -19,7 +19,11 @@ TentView = Backbone.View.extend
 		backBtn = @$('[data-role="header"] [data-rel="back"]')
 		
 		# Hide the back button if there is only 1 module
-		if(_.without(FestivalConfig.modules, 'menu').length == 1) then backBtn.hide() else $('.ui-btn-text', backBtn).text(FestivalLang.TentView.btn.back)
+		if(_.without(FestivalConfig.modules, 'menu').length == 1) 
+			backBtn.hide()
+		else
+			$('.ui-btn-text', backBtn).text(FestivalLang.TentView.btn.back)
+			Festival.pageUrl('menu', null, (url) -> backBtn.attr('href', url))
 		
 		# Set the title
 		@$('h1').text(FestivalLang.TentView.title)

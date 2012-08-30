@@ -13,6 +13,9 @@ SurvivalView = Backbone.View.extend
 		# Set the back button title
 		$('.ui-btn-text', backBtn).text(FestivalLang.SurvivalView.btn.back)
 		
+		# Set the correct page URL for the back button
+		Festival.pageUrl('menu', null, (url) -> backBtn.attr('href', url))
+		
 		# Set the title
 		@$('h1').text(FestivalLang.SurvivalView.title)
 		
