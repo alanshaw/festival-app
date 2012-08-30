@@ -53,6 +53,7 @@ TentView = Backbone.View.extend
 						new google.maps.Point(8, 8), # anchor (move to center of marker)
 						new google.maps.Size(17, 17) # scaled size (required for Retina display icon)
 					)
+					zIndex: 2
 				)
 				
 				# Load the user's tent location from storage
@@ -111,6 +112,7 @@ TentView = Backbone.View.extend
 				null, # anchor (move to center of marker)
 				new google.maps.Size(32, 37) # scaled size (required for Retina display icon)
 			)
+			zIndex: 1
 	
 	###
 	Starts watching the user's position (centres the map on the first located position)

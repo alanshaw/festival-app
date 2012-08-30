@@ -49,10 +49,10 @@
 		<!-- Unique identifier for the festival. Used to resolve theme paths and configuration files -->
 		<festivalId>default</festivalId>
 		<!-- Names of modules that are included in this festival app (menu module is implicitly included) -->
-		<festivalModules>tent,torch</festivalModules>
+		<festivalModules>survival,tent,torch</festivalModules>
 		<!-- Define the directories of the modules you have specified above so their code is included in the build 
 			(mod/menu/** is implicitly included) -->
-		<festivalModuleDirs>mod/tent/**,mod/torch/**</festivalModuleDirs>
+		<festivalModuleDirs>mod/survival/**,mod/tent/**,mod/torch/**</festivalModuleDirs>
 		<!-- Default location of the festival (in the middle or at the main stage) -->
 		<festivalLatitude>51.143952</festivalLatitude>
 		<festivalLongitude>-2.713838</festivalLongitude>

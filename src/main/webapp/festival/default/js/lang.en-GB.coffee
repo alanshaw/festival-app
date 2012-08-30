@@ -37,3 +37,7 @@ class window.FestivalLang
 		title: 'Torch'
 		btn:
 			back: 'Menu'
+	@SurvivalView:
+		title: 'Survival guide'
+		btn:
+			back: 'Menu'
