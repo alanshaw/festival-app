@@ -45,15 +45,14 @@ TentView = Backbone.View.extend
 				@userLocationMarker = new google.maps.Marker(
 					map: @map
 					position: latlng
-					title: 'tent-map-bluedot', # style hook to add pulsate
+					title: FestivalLang.TentView.userLocation.name
 					icon: new google.maps.MarkerImage(
 						'img/bluedot@2x.png',
 						null, # size
 						null, # origin
 						new google.maps.Point(8, 8), # anchor (move to center of marker)
 						new google.maps.Size(17, 17) # scaled size (required for Retina display icon)
-					),
-					optimized: false
+					)
 				)
 				
 				# Load the user's tent location from storage
@@ -119,34 +118,27 @@ TentView = Backbone.View.extend
 	watchPosition: -> 
 		
 		mapCentred = false
+		lastLatLng = null
 		
 		@watchId = navigator.geolocation.watchPosition((position) =>
 			
-			latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+			latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 			
-			if(!mapCentred)
-				@map.setCenter(latlng)
-				mapCentred = true
+			if not mapCentred
+				
+				@map.setCenter(latLng)
+				
+				# Only consider the map centred after we recieve two positions within 15m of each other 
+				if lastLatLng isnt null and google.maps.geometry.spherical.computeDistanceBetween(lastLatLng, latLng) <= 15
+					mapCentred = true
+					lastLatLng = null
+				else
+					lastLatLng = latLng
 			
-			@userLocationMarker.setPosition(latlng)
+			@userLocationMarker.setPosition(latLng)
 		)
 	
-	onPageHide: ->
-		
-		navigator.geolocation.clearWatch(@watchId)
-		
-		# If the page is not being cached in the DOM then clean up
-		if(!@$el.is('[data-dom-cache="true"]'))
-			
-			console?.log('Cleaning up Google map')
-			
-			@tentLocationMarker?.setMap(null)
-			@tentLocationMarker = null
-			
-			@userLocationMarker?.setMap(null)
-			@userLocationMarker = null
-			
-			@map = null
+	onPageHide: -> navigator.geolocation.clearWatch(@watchId)
 
 
 Location = Backbone.Model.extend

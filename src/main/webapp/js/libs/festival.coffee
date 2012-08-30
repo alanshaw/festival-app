@@ -5,6 +5,8 @@ class window.Festival
 		# Setting default page transition to slide
 		$.mobile.defaultPageTransition = 'slide';
 		
+		$.mobile.buttonMarkup.hoverDelay = 100;
+		
 		head = $('head')
 		
 		head.append('<link rel="stylesheet" href="festival/' + FestivalConfig.id + '/css/jquery.mobile-1.2.0-alpha.1.min.css?' + FestivalConfig.version + '" />')
@@ -86,7 +88,7 @@ class window.Festival
 		
 		@cbCounter++
 		
-		@loadCachedScript('http://maps.google.com/maps/api/js?sensor=false&callback=Festival.' + cbName, options)
+		@loadCachedScript('http://maps.google.com/maps/api/js?libraries=geometry&sensor=false&callback=Festival.' + cbName, options)
 	
 	# Alias the backbone localstorage Store object here so we can easily replace if necessary 
 	@Store: window.Store

@@ -28,6 +28,8 @@ class window.FestivalLang
 			relocate: 'Relocate'
 		tentLocation:
 			name: 'Tent location'
+		userLocation:
+			name: 'Your location'
 	@Location:
 		validate:
 			id: 'Invalid location ID'
